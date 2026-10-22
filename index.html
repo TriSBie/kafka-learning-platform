@@ -988,6 +988,77 @@ body{
   .jm-step{transition:none}
 }
 </style>
+<style id="wide-css">
+/* ============================================================
+   WIDE & AIRY — container 1560/1600, wider panels, text spread
+   ============================================================ */
+.wrap{width:97vw;max-width:1560px;margin:0 auto;padding:0 10px 24px}
+@media (min-width:1680px){.wrap{max-width:1600px;width:min(1600px,97vw)}}
+.step-screen{padding-left:0;padding-right:0}
+.sheet-body{padding:24px 52px 48px}
+.sec-head{padding:34px 52px 8px;gap:16px}
+.hero-body{padding:42px 52px 48px}
+.sec-head p{flex:1 1 560px;max-width:760px;position:relative;z-index:2;font-size:15.5px;line-height:1.65}
+.sec-head h2{position:relative;z-index:2}
+.spot{opacity:.16;z-index:0}
+.ghost{z-index:0}
+.hero h1{max-width:22ch}
+.hero .lede{max-width:72ch;font-size:17.5px;line-height:1.72}
+.hero .kick{position:relative;z-index:2}
+/* Lab: fixed wide control column + roomy metrics */
+.game-layout{grid-template-columns:352px minmax(0,1fr)}
+.game-ctl{padding:20px 22px}
+.game-stage{padding:20px 22px}
+.game-ctl .ctl label{font-size:13.5px;line-height:1.45}
+.metrics{grid-template-columns:repeat(auto-fit,minmax(156px,1fr));gap:12px}
+.metric{padding:11px 14px}
+.metric span{letter-spacing:.02em;font-size:11px;line-height:1.4;word-break:keep-all;overflow-wrap:normal}
+.metric b{font-size:20px}
+.pgrid{grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px}
+/* Learn: diagram 46% / ideas 54% + chips flex evenly, no ellipsis */
+.mod-grid{grid-template-columns:minmax(0,46fr) minmax(0,54fr);gap:36px;padding:22px 34px 0}
+.mod-top{padding:26px 34px 0}
+.mod-actions{padding:20px 34px 28px}
+.mod-chips{overflow:visible;flex-wrap:nowrap;gap:10px;padding-bottom:18px}
+.mod-chip{flex:1 1 0;max-width:none;min-width:0;justify-content:center;padding:11px 10px;font-size:13.5px}
+.mod-chip .mc-t{overflow:visible;text-overflow:clip;white-space:nowrap}
+.lcard p,.lesson{max-width:none}
+.take-card,.lcard{padding-left:22px;padding-right:22px}
+/* Cards breathe with new width */
+.cards{grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:22px}
+#cases .cards{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
+.detail-grid>div{padding:18px 24px}
+.qcard{padding:28px 30px}
+.sample-q{padding:26px 30px}
+.next-goal p{max-width:72ch}
+/* Tablet 901–1120: keep grids sane, Learn stacks via existing rule at 900; here tighten */
+@media (min-width:901px) and (max-width:1120px){
+  .sheet-body{padding:20px 28px 40px;padding-right:76px}
+  .sec-head{padding:28px 28px 6px}
+  .hero-body{padding:32px 28px 40px}
+  .game-layout{grid-template-columns:320px minmax(0,1fr)}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .mod-grid{grid-template-columns:1fr;padding:18px 24px 0}
+  .mod-col-diagram{position:static}
+  .mod-chips{flex-wrap:wrap}
+  .mod-chip{flex:1 1 30%}
+}
+@media (max-width:900px){
+  .wrap{width:100%;max-width:none;padding:0 8px 16px}
+  .sheet-body{padding:16px 22px 32px}
+  .sec-head{padding:24px 22px 4px}
+  .sec-head p{flex:1 1 100%;max-width:none}
+  .hero-body{padding:28px 22px 34px}
+  .hero .lede{max-width:none}
+  .game-layout{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .mod-chips{overflow-x:auto;flex-wrap:nowrap}
+  .mod-chip{flex:0 0 auto;max-width:290px}
+  .mod-chip .mc-t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mod-grid{grid-template-columns:1fr;padding:16px 20px 0}
+  .cards,#cases .cards{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
@@ -1506,6 +1577,7 @@ const MODULES=[
 
 let curMod='m1';
 const MOD_ICONS={m1:'layers',m2:'copy',m3:'ordered',m4:'shield',m5:'share'};
+const MOD_SHORT={m1:{vi:"Core Concepts",en:"Core Concepts"},m2:{vi:"Kafka vs RabbitMQ",en:"Kafka vs RabbitMQ"},m3:{vi:"Ordering",en:"Ordering"},m4:{vi:"Reliability at Scale",en:"Reliability at Scale"},m5:{vi:"Share Groups",en:"Share Groups"}};
 const MOD_FIGS={
  m1:{vi:"Sơ đồ cluster: producer → partition leader/follower → consumer groups",en:"Cluster diagram: producer → partition leader/followers → consumer groups"},
  m2:{vi:"Cây quyết định: hiệu suất/streaming (Kafka) vs chức năng từng message (RabbitMQ)",en:"Decision tree: throughput/streaming (Kafka) vs per-message features (RabbitMQ)"},
@@ -1524,7 +1596,7 @@ function renderModules(){
   if(!MODULES.some(m=>m.id===curMod))curMod='m1';
   const chips=MODULES.map(m=>{
     const done=PROG.modules.includes(m.id);
-    return `<button type="button" role="tab" aria-selected="${m.id===curMod}" class="mod-chip ${m.id===curMod?'on':''}" data-chip="${m.id}">${ic(MOD_ICONS[m.id])}<span class="mono">${m.num}</span><span class="mc-t">${L(m.title)}</span>${done?'<span class="mc-done">✓</span>':''}</button>`;
+    return `<button type="button" role="tab" title="${L(m.title)}" aria-label="${L(m.title)}" aria-selected="${m.id===curMod}" class="mod-chip ${m.id===curMod?'on':''}" data-chip="${m.id}">${ic(MOD_ICONS[m.id])}<span class="mono">${m.num}</span><span class="mc-t">${L(MOD_SHORT[m.id]||m.title)}</span>${done?'<span class="mc-done">✓</span>':''}</button>`;
   }).join('');
   $('#modules').innerHTML=`<div class="mod-chips" role="tablist" aria-label="Modules">${chips}</div>`+MODULES.map(m=>{
     const done=PROG.modules.includes(m.id);
