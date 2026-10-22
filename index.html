@@ -766,6 +766,7 @@ button.ghost{position:static;opacity:1;pointer-events:auto;font-family:inherit;f
 #incidents{--sa:#DC2626;--sa2:#FB7185;--mesh1:rgba(220,38,38,.14);--mesh2:rgba(251,113,133,.12)}
 #cases{--sa:#7C3AED;--sa2:#2563EB;--mesh1:rgba(124,58,237,.14);--mesh2:rgba(37,99,235,.11)}
 #quiz{--sa:#D97706;--sa2:#F97316;--mesh1:rgba(217,119,6,.16);--mesh2:rgba(249,115,22,.12)}
+#hands-on{--sa:#059669;--sa2:#0D9488;--mesh1:rgba(5,150,105,.18);--mesh2:rgba(13,148,136,.14)}
 #progress{--sa:#0E7C6B;--sa2:#F97316;--mesh1:rgba(14,124,107,.17);--mesh2:rgba(249,115,22,.12)}
 @media (prefers-color-scheme: dark){
   #intro{--mesh1:rgba(249,115,22,.26);--mesh2:rgba(245,158,11,.18)}
@@ -774,6 +775,7 @@ button.ghost{position:static;opacity:1;pointer-events:auto;font-family:inherit;f
   #incidents{--mesh1:rgba(255,107,94,.18);--mesh2:rgba(251,113,133,.15)}
   #cases{--mesh1:rgba(155,148,232,.20);--mesh2:rgba(37,99,235,.16)}
   #quiz{--mesh1:rgba(232,185,62,.20);--mesh2:rgba(249,115,22,.16)}
+  #hands-on{--mesh1:rgba(52,211,153,.22);--mesh2:rgba(45,212,191,.16)}
   #progress{--mesh1:rgba(47,191,165,.20);--mesh2:rgba(249,115,22,.15)}
 }
 
@@ -950,7 +952,7 @@ body{
 .next-goal h4{margin:0 0 3px;font-size:17px;font-family:"Space Grotesk","Be Vietnam Pro",sans-serif}
 .next-goal p{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.6;max-width:62ch}
 .next-goal .btn{margin-left:auto}
-.journey-map{display:grid;grid-template-columns:repeat(7,1fr);gap:11px;margin-top:20px}
+.journey-map{display:grid;grid-template-columns:repeat(8,1fr);gap:11px;margin-top:20px}
 .jm-step{
   background:var(--surface2);border:0;border-radius:18px;box-shadow:var(--shadow);
   padding:15px 10px 13px;text-align:center;cursor:pointer;font:inherit;color:var(--ink);
@@ -1059,18 +1061,76 @@ body{
   .cards,#cases .cards{grid-template-columns:1fr}
 }
 </style>
+<style id="handson-css">
+/* ============================================================
+   HANDS-ON TRACK — workbook: checklists, code blocks, outputs
+   ============================================================ */
+#hands-on .sheet{background:radial-gradient(760px 360px at 100% 0%, var(--mesh1,transparent), transparent 62%),radial-gradient(600px 320px at 0% 100%, var(--mesh2,transparent), transparent 60%),var(--surface)}
+.ho-principle{display:flex;gap:16px;align-items:flex-start;border-radius:22px;box-shadow:var(--shadow);padding:20px 24px;margin-bottom:22px;background:linear-gradient(120deg,color-mix(in srgb,var(--teal-soft) 70%, var(--surface2)),var(--surface2))}
+.ho-principle .ng-ic{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#10B981,#0D9488);color:#fff;display:grid;place-items:center;flex:none}
+.ho-principle h4{margin:0 0 4px;font-size:17px;font-family:"Space Grotesk","Be Vietnam Pro",sans-serif}
+.ho-principle p{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.65}
+.ho-rm{display:grid;gap:12px;margin-bottom:26px}
+.ho-rm-row{background:var(--surface2);border-radius:18px;box-shadow:var(--shadow);padding:16px 20px;display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.ho-rm-lvl{flex:0 0 118px;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:15.5px;padding-top:3px}
+.ho-rm-lvl small{display:block;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:10.5px;color:var(--muted);letter-spacing:.06em;margin-top:2px}
+.ho-wks{display:flex;flex-wrap:wrap;gap:8px;flex:1;min-width:0}
+.ho-wk{background:var(--surface3);border-radius:999px;padding:5px 13px;font-size:13px;color:var(--ink2)}
+.ho-wk b{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--accent-ink);margin-right:6px}
+.ho-wk.off{opacity:.45}
+.ho-mod{margin-bottom:22px;padding:24px 26px}
+.ho-mod-head{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.ho-mod-head>div{flex:1 1 420px;min-width:0}
+.ho-mod-num{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:15px;background:linear-gradient(135deg,#10B981,#0D9488);color:#fff;padding:8px 13px;border-radius:12px;flex:none}
+.ho-mod-head h3{margin:0;font-size:21px;letter-spacing:-.01em}
+.ho-mod-head .goal{color:var(--muted);font-size:14px;margin:3px 0 0;max-width:72ch}
+.ho-mod-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.ho-status{margin-left:auto;flex:none;font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:700;letter-spacing:.05em;padding:6px 13px;border-radius:999px;background:var(--surface3);color:var(--muted)}
+.ho-status.done{background:var(--teal-soft);color:var(--teal)}
+.ho-sub{font-family:"Space Grotesk","Be Vietnam Pro",sans-serif;font-size:15.5px;font-weight:700;margin:22px 0 10px}
+.ho-codewrap{margin:0 0 16px;border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.ho-codehead{display:flex;align-items:center;gap:10px;background:#23262D;color:#C9CED8;padding:8px 12px 8px 16px;font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:700;letter-spacing:.05em}
+.ho-codehead .btn{margin-left:auto;background:rgba(255,255,255,.12);color:#EDEBE4}
+.ho-code{background:#14171C;color:#D7DBE2;font-family:"JetBrains Mono",monospace;font-size:12.3px;line-height:1.6;padding:14px 16px;margin:0;overflow-x:auto;white-space:pre;max-width:100%}
+.ho-readgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:6px}
+.ho-read{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:16px 18px}
+.ho-read .mono{font-size:11.5px;color:var(--accent-ink);font-weight:700;word-break:break-all}
+.ho-read h5{margin:6px 0 5px;font-size:15px;font-family:"Space Grotesk","Be Vietnam Pro",sans-serif}
+.ho-read p{margin:0;font-size:13.5px;color:var(--ink2);line-height:1.6}
+.ho-task{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);padding:18px 20px;margin-top:14px}
+.ho-task.done{box-shadow:var(--shadow), inset 0 0 0 2px var(--teal)}
+.ho-task-top{display:flex;gap:12px;align-items:flex-start}
+.ho-task-top input[type=checkbox]{width:23px;height:23px;flex:none;margin-top:2px;accent-color:var(--teal);cursor:pointer}
+.ho-task-top h5{margin:0;font-size:16.5px;font-family:"Space Grotesk","Be Vietnam Pro",sans-serif;line-height:1.4}
+.ho-task-top .xp{margin-left:auto;flex:none}
+.ho-task .desc{margin:8px 0 0 35px;color:var(--ink2);font-size:14.5px;line-height:1.65}
+.ho-task .ho-codewrap{margin:12px 0 0 35px}
+.ho-out{margin:12px 0 0 35px}
+.ho-out label{display:block;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.ho-out textarea{width:100%;min-height:86px;resize:vertical;border:0;border-radius:14px;background:var(--surface3);color:var(--ink);font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.55;padding:12px 14px;box-shadow:inset 0 0 0 1px var(--line)}
+.ho-out textarea:focus{outline:2px solid var(--teal);outline-offset:1px}
+.ho-note{margin:12px 0 0 35px;background:var(--amber-soft);border-radius:14px;padding:12px 16px;font-size:14px;line-height:1.6;color:var(--ink2)}
+.ho-note b{color:var(--ink)}
+@media (max-width:900px){
+  .ho-mod{padding:20px 18px}
+  .ho-readgrid{grid-template-columns:1fr}
+  .ho-task .desc,.ho-task .ho-codewrap,.ho-out,.ho-note{margin-left:0}
+  .ho-status{margin-left:0}
+  .ho-rm-lvl{flex-basis:100%}
+}
+</style>
 </head>
 <body>
 
 <header class="pillbar" id="pillbar">
   <a class="pill-brand" href="#intro"><span class="mark" id="brand-mark">K_</span><span class="pb-name">Kafka Lab</span></a>
   <div class="pill-step" id="pill-step" aria-live="polite">
-    <span class="pill-stepnum mono" id="pill-stepnum">STEP 0/6</span>
+    <span class="pill-stepnum mono" id="pill-stepnum">STEP 0/7</span>
     <span class="pill-stepname" id="pill-stepname">Kafka Lab</span>
   </div>
   <nav class="pill-segs" id="pill-segs" aria-label="Steps"></nav>
   <div class="pill-xp mono" id="pill-xp">⚡ 0 XP</div>
-  <div class="pill-cleared mono" id="pill-cleared">0/7</div>
+  <div class="pill-cleared mono" id="pill-cleared">0/8</div>
   <button class="pill-kbd mono" id="cmdk-open" type="button" aria-haspopup="dialog" title="Jump to step">⌘K</button>
   <div class="langsw" role="group" aria-label="Language">
     <button id="lang-vi" type="button">VI</button>
@@ -1317,10 +1377,20 @@ body{
     </div></div>
   </section>
 
+  <!-- HANDS-ON -->
+  <section class="blk step-screen" id="hands-on" data-step="6">
+    <div class="sheet"><span class="ghost" aria-hidden="true">06</span><div class="spot" aria-hidden="true"><svg viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="14" y="14" width="92" height="62" rx="9"/><path d="M28 34l12 9-12 9M46 56h22"/><circle cx="94" cy="25" r="1.8" fill="currentColor" stroke="none"/><circle cx="84" cy="25" r="1.8" fill="currentColor" stroke="none" opacity=".55"/></svg></div>
+    <div class="sec-head"><span class="idx">STEP 6</span><h2 data-i18n="ho_h">Hands-on Track — Làm thật trên máy của bạn</h2><p data-i18n="ho_sub">Workbook A/B/C từ đánh giá nội bộ team: dựng cluster, đọc code thật, vận hành như production. Tick bài và dán output ngay tại đây — mọi thứ lưu trên trình duyệt này.</p></div>
+    <div class="sheet-body">
+    <div id="ho-roadmap"></div>
+    <div id="ho-modules"></div>
+    </div></div>
+  </section>
+
   <!-- PROGRESS -->
-  <section class="blk step-screen" id="progress" data-step="6">
-    <div class="sheet"><span class="ghost" aria-hidden="true">06</span><div class="spot" aria-hidden="true"><svg viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="60" cy="45" r="30" opacity=".35"/><path d="M60 15a30 30 0 1 1-21 51" stroke-width="5"/><path d="M48 45l9 9 16-18" stroke-width="3.4"/></svg></div>
-    <div class="sec-head"><span class="idx">STEP 6</span><h2 data-i18n="prog_h">Tiến độ của bạn</h2><p data-i18n="prog_sub">Lưu tự động trên trình duyệt này (localStorage). Không tài khoản, không máy chủ.</p></div>
+  <section class="blk step-screen" id="progress" data-step="7">
+    <div class="sheet"><span class="ghost" aria-hidden="true">07</span><div class="spot" aria-hidden="true"><svg viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="60" cy="45" r="30" opacity=".35"/><path d="M60 15a30 30 0 1 1-21 51" stroke-width="5"/><path d="M48 45l9 9 16-18" stroke-width="3.4"/></svg></div>
+    <div class="sec-head"><span class="idx">STEP 7</span><h2 data-i18n="prog_h">Tiến độ của bạn</h2><p data-i18n="prog_sub">Lưu tự động trên trình duyệt này (localStorage). Không tài khoản, không máy chủ.</p></div>
     <div class="sheet-body">
     <div class="panel" style="padding:20px">
       <div style="display:flex;gap:22px;align-items:center;flex-wrap:wrap">
@@ -1332,6 +1402,7 @@ body{
         <div><h4 class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--muted);margin:0 0 6px" data-i18n="prog_games">GAMES</h4><div id="prog-games"></div></div>
         <div><h4 class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--muted);margin:0 0 6px" data-i18n="prog_quiz">QUIZ — ĐIỂM CAO NHẤT</h4><div id="prog-quiz"></div></div>
       </div>
+      <div id="prog-hands" style="margin-top:18px"></div>
       <button class="btn" id="prog-reset" type="button" style="margin-top:18px" data-i18n="prog_reset">Xoá toàn bộ tiến độ</button>
     </div>
     <div id="prog-extras"></div>
@@ -1350,7 +1421,7 @@ body{
   <div class="cmdk-panel">
     <div class="cmdk-head"><span data-ic="command"></span><span data-i18n="cmdk_h">Nhảy tới step</span><kbd>esc</kbd></div>
     <div id="cmdk-list"></div>
-    <div class="cmdk-foot"><span><kbd>0</kbd>–<kbd>6</kbd> <span data-i18n="cmdk_num">bấm số để nhảy</span></span><span><kbd>↑</kbd><kbd>↓</kbd> <span data-i18n="cmdk_scroll">cuộn giữa các step</span></span></div>
+    <div class="cmdk-foot"><span><kbd>0</kbd>–<kbd>7</kbd> <span data-i18n="cmdk_num">bấm số để nhảy</span></span><span><kbd>↑</kbd><kbd>↓</kbd> <span data-i18n="cmdk_scroll">cuộn giữa các step</span></span></div>
   </div>
 </div>
 
@@ -1366,6 +1437,9 @@ let PROG=store.get('prog',{modules:[],games:[],incidents:[],quizBest:{}});
 if(!Array.isArray(PROG.cases))PROG.cases=[];
 if(!PROG.quizDone)PROG.quizDone={};
 if(!PROG.quizHits)PROG.quizHits={};
+if(!PROG.handsOn||typeof PROG.handsOn!=='object')PROG.handsOn={tasks:{},outputs:{}};
+if(!PROG.handsOn.tasks)PROG.handsOn.tasks={};
+if(!PROG.handsOn.outputs)PROG.handsOn.outputs={};
 function saveProg(){store.set('prog',PROG)}
 function markDone(kind,id){if(!Array.isArray(PROG[kind]))PROG[kind]=[];if(!PROG[kind].includes(id)){PROG[kind].push(id);saveProg();renderProgress();}}
 
@@ -1392,6 +1466,8 @@ case_h:{vi:"Case Studies — Bài toán nên làm với Kafka",en:"Case Studies 
 case_sub:{vi:"Mỗi case: bối cảnh, áp lực, kiến trúc, quyết định kỹ thuật và câu hỏi để bạn tự chọn trước khi xem khuyến nghị.",en:"Each case: context, pressure, architecture, key decisions — and a question for you to decide before seeing the recommendation."},
 quiz_h:{vi:"Quiz Cards — Ôn luyện theo level",en:"Quiz Cards — Practice by Level"},
 quiz_sub:{vi:"Chọn level, trả lời từng thẻ, xem giải thích ngay. Điểm cao nhất được lưu trên máy này.",en:"Pick a level, answer card by card, get instant explanations. Your best score is saved on this device."},
+ho_h:{vi:"Hands-on Track — Làm thật trên máy của bạn",en:"Hands-on Track — Real Work on Your Own Machine"},
+ho_sub:{vi:"Workbook A/B/C từ đánh giá nội bộ team: dựng cluster, đọc code thật, vận hành như production. Tick bài và dán output ngay tại đây — mọi thứ lưu trên trình duyệt này.",en:"The A/B/C workbook from the team's internal review: build a cluster, read real code, operate like production. Tick tasks and paste your output right here — everything is saved in this browser."},
 prog_h:{vi:"Tiến độ của bạn",en:"Your Progress"},
 prog_sub:{vi:"Lưu tự động trên trình duyệt này (localStorage). Không tài khoản, không máy chủ.",en:"Saved automatically in this browser (localStorage). No account, no server."},
 prog_total:{vi:"TỔNG TIẾN ĐỘ",en:"OVERALL PROGRESS"},
@@ -2476,8 +2552,8 @@ function finishQuiz(){
 
 /* ================= PROGRESS ================= */
 function renderProgress(){
-  const totalUnits=MODULES.length+GAMES.length+INCIDENTS.length+LEVELS.length;
-  const doneUnits=PROG.modules.length+PROG.games.length+PROG.incidents.length+Object.keys(PROG.quizDone||{}).length;
+  const totalUnits=MODULES.length+GAMES.length+INCIDENTS.length+LEVELS.length+HO_ALL.length;
+  const doneUnits=PROG.modules.length+PROG.games.length+PROG.incidents.length+Object.keys(PROG.quizDone||{}).length+hoDoneCount();
   const pct=totalUnits?Math.round(doneUnits/totalUnits*100):0;
   $('#prog-pct').textContent=pct+'%';
   $('#top-progress').style.width=pct+'%';
@@ -2485,14 +2561,247 @@ function renderProgress(){
     [PROG.modules.length+'/'+MODULES.length,LANG==='vi'?'Module đã đọc':'Modules read'],
     [PROG.games.length+'/'+GAMES.length,LANG==='vi'?'Game hoàn thành':'Games completed'],
     [PROG.incidents.length+'/'+INCIDENTS.length,LANG==='vi'?'Sự cố đã mở':'Incidents opened'],
-    [Object.keys(PROG.quizDone||{}).length+'/'+LEVELS.length,LANG==='vi'?'Level quiz hoàn thành':'Quiz levels completed']
+    [Object.keys(PROG.quizDone||{}).length+'/'+LEVELS.length,LANG==='vi'?'Level quiz hoàn thành':'Quiz levels completed'],
+    [hoDoneCount()+'/'+HO_ALL.length,LANG==='vi'?'Bài Hands-on đã tick':'Hands-on tasks ticked']
   ].map(c=>`<div class="prog-cell panel"><b>${c[0]}</b><span>${c[1]}</span></div>`).join('');
   const line=(ok,label)=>`<div class="checkline"><span class="box ${ok?'y':'n'}">${ok?'☑':'☐'}</span><span>${label}</span></div>`;
   $('#prog-mods').innerHTML=MODULES.map(m=>line(PROG.modules.includes(m.id),`${m.num} · ${L(m.title)}`)).join('');
   $('#prog-games').innerHTML=GAMES.map(g=>line(PROG.games.includes(g.id),L(g.name))).join('');
   $('#prog-quiz').innerHTML=LEVELS.map(lv=>{const b=PROG.quizBest[lv.id];return line(!!b,`${L(QUIZ[lv.id].name)}${b?` — ★ ${b.score}/${b.total}`:''}`)}).join('');
+  const ph=document.getElementById('prog-hands');
+  if(ph){const st=hoState();ph.innerHTML=`<h4 class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--muted);margin:0 0 6px">HANDS-ON TRACK — ${hoDoneCount()}/${HO_ALL.length} ${LANG==='vi'?'BÀI ĐÃ TICK':'TASKS TICKED'}</h4>`+HO_MODULES.map(m=>line(hoModuleDone(m.id),`${LANG==='vi'?'Module':'Module'} ${m.id} · ${L(m.title)} — ${HO_TASKS[m.id].filter(id=>st.tasks[id]).length}/${HO_TASKS[m.id].length} ${LANG==='vi'?'bài':'tasks'}`)).join('');}
   if(typeof renderProgExtras==='function')renderProgExtras();
   renderPillMeta();
+}
+
+/* ================= HANDS-ON TRACK (Step 6) ================= */
+const HO_TASKS={A:['A1','A2','A3'],B:['B1','B2','B3'],C:['C1','C2','C3','C4','C5']};
+const HO_ALL=['A1','A2','A3','B1','B2','B3','C1','C2','C3','C4','C5'];
+function hoState(){if(!PROG.handsOn||typeof PROG.handsOn!=='object')PROG.handsOn={tasks:{},outputs:{}};if(!PROG.handsOn.tasks)PROG.handsOn.tasks={};if(!PROG.handsOn.outputs)PROG.handsOn.outputs={};return PROG.handsOn}
+function hoDoneCount(){const st=hoState();return HO_ALL.filter(id=>st.tasks[id]).length}
+function hoModuleDone(m){const st=hoState();return HO_TASKS[m].every(id=>st.tasks[id])}
+function hoXP(){return hoDoneCount()*15+['A','B','C'].filter(m=>hoModuleDone(m)).length*30}
+function hoFirstUndone(){const st=hoState();return HO_ALL.find(id=>!st.tasks[id])}
+function hoEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+const HO_CODE={
+compose:[
+"services:",
+"  kafka:",
+"    image: apache/kafka:3.8.0",
+"    hostname: kafka",
+"    ports:",
+'      - "9092:9092"',
+"    environment:",
+"      KAFKA_NODE_ID: 1",
+"      KAFKA_PROCESS_ROLES: broker,controller",
+"      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093",
+"      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092",
+"      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093",
+"      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER",
+"      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1",
+"      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1",
+"      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1",
+"  kafka-ui:",
+"    image: provectuslabs/kafka-ui:latest",
+"    ports:",
+'      - "8080:8080"',
+"    environment:",
+"      KAFKA_CLUSTERS_0_NAME: local-kraft",
+"      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092",
+"    depends_on:",
+"      - kafka"
+].join('\n'),
+a1out:[
+"$ kafka-topics.sh --bootstrap-server localhost:9092 --create --topic lab-orders --partitions 3 --replication-factor 1",
+"$ kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic lab-orders",
+"Topic: lab-orders  PartitionCount: 3  ReplicationFactor: 1  Configs: segment.bytes=1073741824",
+"  Topic: lab-orders  Partition: 0  Leader: 1  Replicas: 1  Isr: 1",
+"  Topic: lab-orders  Partition: 1  Leader: 1  Replicas: 1  Isr: 1",
+"  Topic: lab-orders  Partition: 2  Leader: 1  Replicas: 1  Isr: 1",
+"# produce 100 keyed messages, then count per partition in kafka-ui (http://localhost:8080)",
+"# expectation: keys spread across P0/P1/P2 by hash(key) — same key always lands on the same partition"
+].join('\n'),
+a3out:[
+"GROUP           TOPIC       PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG   CONSUMER-ID",
+"lab-group       lab-orders  0          96              100             4     consumer-lab-group-1-…",
+"lab-group       lab-orders  1          100             100             0     consumer-lab-group-1-…",
+"lab-group       lab-orders  2          88              100             12    consumer-lab-group-2-…",
+"# LAG = LOG-END-OFFSET - CURRENT-OFFSET: messages produced but not yet committed as consumed"
+].join('\n'),
+idem:[
+"// SAMPLE — reference pattern only (NestJS + KafkaJS style), not team source code.",
+"// Rule: dedupe by messageId BEFORE the business logic, commit offset only AFTER success.",
+"@Injectable()",
+"export class IdempotentConsumer {",
+"  constructor(private readonly redis: Redis) {}",
+"",
+"  async handle({ topic, partition, message }) {",
+"    const messageId =",
+"      message.headers?.['message-id']?.toString() ??",
+"      topic + ':' + partition + ':' + message.offset;",
+"",
+"    // SET NX returns null when the key already exists → duplicate delivery",
+"    const first = await this.redis.set('dedup:' + messageId, '1', 'NX', 'EX', 86400);",
+"    if (!first) return; // already processed — skip safely (at-least-once absorbed)",
+"",
+"    await this.businessLogic(JSON.parse(message.value.toString()));",
+"    // consumer runs with autoCommit: false — offset is committed by the framework",
+"    // only after handle() resolves; a crash before commit → redelivery → dedup above.",
+"  }",
+"}"
+].join('\n'),
+dlq:[
+"// SAMPLE — send to DLQ with the standard header set, then it can be replayed.",
+"await producer.send({",
+"  topic: topic + '.DLQ',",
+"  messages: [{",
+"    key: message.key,",
+"    value: message.value,",
+"    headers: {",
+"      'x-original-topic': topic,",
+"      'x-original-partition': String(partition),",
+"      'x-original-offset': message.offset,",
+"      'x-error': err.message,",
+"      'x-retry-count': String(retryCount), // reached 3 → DLQ",
+"      'x-failed-at': new Date().toISOString(),",
+"    },",
+"  }],",
+"});",
+"// Replay: fix the root cause → a replayer re-sends the record to x-original-topic",
+"// and archives the DLQ entry. A DLQ without replay is a message graveyard."
+].join('\n'),
+c1:[
+"$ kafka-topics.sh --bootstrap-server localhost:9092 --create --topic orders-v2 \\",
+"    --partitions 6 --replication-factor 3 --config min.insync.replicas=2",
+"# kill broker-2  → produce with acks=all still OK      (ISR = 2 >= min.insync 2)",
+"# kill broker-3  → produce FAILS: NOT_ENOUGH_REPLICAS  (ISR = 1 <  min.insync 2)",
+"# unclean.leader.election.enable = false (default): Kafka refuses to elect an",
+"# out-of-sync replica as leader — it protects data, at the cost of availability."
+].join('\n'),
+c2:[
+"$ kafka-configs.sh --bootstrap-server localhost:9092 --alter --entity-type topics \\",
+"    --entity-name user-state \\",
+"    --add-config cleanup.policy=compact,delete.retention.ms=86400000",
+"$ kafka-dump-log.sh --segments \\",
+"    --files /var/lib/kafka/data/user-state-0/00000000000000000000.log --print-data-log",
+"# verify: the raw segment may repeat a key, but after compaction only the",
+"# LATEST value per key survives — the topic becomes a changelog of current state."
+].join('\n'),
+c3:[
+"$ kafka-configs.sh --bootstrap-server localhost:9092 --alter --entity-type users \\",
+"    --entity-name lab-reader --add-config 'SCRAM-SHA-512=[password=lab-secret]'",
+"$ kafka-acls.sh --bootstrap-server localhost:9092 --command-config admin.properties \\",
+"    --add --allow-principal User:lab-reader \\",
+"    --operation Read --operation Describe --topic allowed-topic --group 'lab-reader-*'",
+"# test: consume allowed-topic → OK",
+"# test: consume any other topic → TOPIC_AUTHORIZATION_FAILED"
+].join('\n'),
+c4:[
+"# kafka_exporter (danielqsj) → Prometheus → Grafana dashboard on consumer lag",
+"groups:",
+"  - name: kafka-lag",
+"    rules:",
+"      - alert: ConsumerLagHigh",
+"        expr: kafka_consumergroup_lag{consumergroup=\"task-consumer\"} > 1000",
+"        for: 5m",
+"        labels:",
+"          severity: warning",
+"        annotations:",
+"          summary: \"Lag > 1000 for 5m on group {{ $labels.consumergroup }}\"",
+"# alert is scoped to ONE consumer group — a total-lag alert hides which group is drowning"
+].join('\n')
+};
+const HO_READING=[
+ {f:"src/kafka/services/consumer.service.ts · L47–87",t:{vi:"eachMessage: parse + dispatch qua schema registry",en:"eachMessage: parse + dispatch via schema registry"},d:{vi:"Mỗi message tới được giải mã (decode) bằng schema registry rồi dispatch tới handler theo topic/loại event. Đây là cửa ngõ của mọi luồng consume trong loyalty-v3 — muốn thêm handler mới, bắt đầu từ đây.",en:"Every incoming message is decoded via the schema registry, then dispatched to a handler by topic/event type. This is the gateway for all consume flows in loyalty-v3 — new handlers start here."}},
+ {f:"src/kafka/services/consumer.service.ts · L93–120",t:{vi:"onApplicationShutdown: draining + grace 75s",en:"onApplicationShutdown: draining + 75s grace"},d:{vi:"Khi app shutdown, service set cờ draining và KHÔNG commit offset nữa — message đang xử lý dở sẽ được redeliver sang pod khác thay vì mất. Toàn bộ quá trình drain có grace period 75 giây trước khi tiến trình thoát hẳn.",en:"On shutdown the service sets a draining flag and stops committing offsets — in-flight messages are redelivered to another pod instead of being lost. The whole drain runs inside a 75-second grace period before the process exits."}},
+ {f:"src/point/task-kafka-consumer.service.ts · L103–116",t:{vi:"taskSubscriber: check draining trước khi xử lý",en:"taskSubscriber: checks draining before processing"},d:{vi:"Phía subscriber của luồng task kiểm tra cờ draining ngay trong taskSubscriber: nếu đang drain thì không nhận việc mới. Đây là nửa còn lại của cơ chế ở thẻ 2 — hai phía cùng tôn trọng một cờ trạng thái.",en:"The task-flow subscriber checks the draining flag inside taskSubscriber: while draining, it takes no new work. This is the other half of the mechanism in card 2 — both sides respect one shared state flag."}},
+ {f:"src/kafka/services/producer.service.ts",t:{vi:"Producer: encode schema trước khi send",en:"Producer: schema-encode before send"},d:{vi:"Mọi message gửi đi đều được encode bằng schema registry trước khi publish — đảm bảo consumer ở đầu kia luôn decode được và schema tiến hoá có kiểm soát (compatibility), thay vì JSON tự do mỗi service một kiểu.",en:"Every outgoing message is encoded with the schema registry before publishing — consumers on the other end can always decode, and schema evolution stays controlled (compatibility) instead of free-form JSON per service."}}
+];
+const HO_MODULES=[
+ {id:'A',lvl:'Junior',dur:{vi:'1 tuần',en:'1 week'},title:{vi:'Docker Lab — Dựng cluster & CLI',en:'Docker Lab — Cluster & CLI'},goal:{vi:'Tự dựng được 1 broker Kafka (KRaft, không ZooKeeper) bằng Docker và gõ được các lệnh CLI nền tảng: tạo topic, produce/consume, đọc lag.',en:'Stand up a single Kafka broker (KRaft, no ZooKeeper) with Docker and run the foundational CLI: create topics, produce/consume, read lag.'},
+  tasks:[
+   {id:'A1',code:'a1out',t:{vi:'Topic 3 partition + produce 100 message có key',en:'3-partition topic + produce 100 keyed messages'},d:{vi:'Tạo topic lab-orders với 3 partition, produce 100 message có key (ví dụ key = orderId), rồi quan sát phân bố message theo partition qua kafka-ui (localhost:8080) hoặc CLI. Chụp/ghi lại số message từng partition và kiểm chứng: cùng key luôn rơi vào cùng 1 partition.',en:'Create topic lab-orders with 3 partitions, produce 100 messages with keys (e.g. key = orderId), then observe the per-partition distribution in kafka-ui (localhost:8080) or the CLI. Record the per-partition counts and verify: the same key always lands on the same partition.'}},
+   {id:'A2',t:{vi:'2 consumer cùng group: rebalance & reassignment',en:'2 consumers in one group: rebalance & reassignment'},d:{vi:'Chạy 2 consumer cùng group lab-group, quan sát assignment lúc cả hai cùng sống (mỗi consumer ôm một phần partition). Kill 1 consumer → quan sát rebalance: partition của consumer đã chết được reassignment sang consumer còn lại, và việc consume không mất message.',en:'Run 2 consumers in group lab-group and observe the assignment while both are alive (each holds a subset of partitions). Kill one consumer → watch the rebalance: its partitions are reassigned to the survivor, and consumption loses no messages.'}},
+   {id:'A3',code:'a3out',t:{vi:'Đọc LAG bằng kafka-consumer-groups --describe',en:'Read LAG with kafka-consumer-groups --describe'},d:{vi:'Chạy kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group lab-group, nộp NGUYÊN output vào ô bên dưới và viết đúng 3 câu giải thích LAG: nó là hiệu số nào, vì sao tăng khi consumer chậm, và khi nào cần alert.',en:'Run kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group lab-group, paste the FULL output into the box below, and write exactly 3 sentences explaining LAG: which difference it is, why it grows when consumers slow down, and when it should alert.'}}
+  ]},
+ {id:'B',lvl:'Middle',dur:{vi:'2 tuần',en:'2 weeks'},title:{vi:'Code Lab — Đọc code thật của loyalty-v3',en:'Code Lab — Reading loyalty-v3’s Real Code'},goal:{vi:'Đọc-hiểu 4 điểm chạm Kafka trong vtd-service-loyalty-v3 (consumer, draining khi shutdown, producer + schema registry) và áp dụng được 3 pattern: idempotent consumer, graceful shutdown, DLQ có replay.',en:'Read and explain 4 Kafka touchpoints in vtd-service-loyalty-v3 (consumer, shutdown draining, producer + schema registry) and apply 3 patterns: idempotent consumer, graceful shutdown, replayable DLQ.'},
+  tasks:[
+   {id:'B1',t:{vi:'Thêm idempotent check cho 1 handler',en:'Add an idempotent check to one handler'},d:{vi:'Chọn 1 handler có thật (hoặc handler mẫu), thêm dedupe theo messageId theo pattern ở khối code mẫu phía trên: kiểm tra TRƯỚC khi chạy nghiệp vụ, commit offset SAU khi xử lý thành công. Dán đoạn code bạn sửa + 2–3 câu giải thích vì sao at-least-once bắt buộc cần lớp dedupe này (Kafka giao lại message khi consumer crash/rebalance — không dedupe là nghiệp vụ chạy 2 lần).',en:'Pick a real handler (or the sample one) and add messageId dedupe following the sample pattern above: check BEFORE the business logic, commit the offset AFTER success. Paste your changed code + 2–3 sentences on why at-least-once makes this layer mandatory (Kafka redelivers on crash/rebalance — without dedupe the business logic runs twice).'}},
+   {id:'B2',t:{vi:'SIGTERM giữa lúc xử lý → chứng minh không mất message',en:'SIGTERM mid-processing → prove no message is lost'},d:{vi:'Gửi SIGTERM cho consumer ngay giữa lúc nó đang xử lý một message (đặt sleep/log để bắt đúng khoảnh khắc). Dựa trên cơ chế draining ở thẻ đọc code 2–3: cờ draining bật, offset không commit, message được redeliver sang instance khác sau grace 75s. Nộp log hai phía (pod bị kill + pod nhận lại) làm bằng chứng.',en:'Send SIGTERM to the consumer right in the middle of processing a message (add a sleep/log to catch the moment). Based on the draining mechanism in reading cards 2–3: the flag flips, the offset is never committed, and the message is redelivered to another instance within the 75s grace. Submit logs from both sides (killed pod + receiving pod) as proof.'}},
+   {id:'B3',code:'dlq',t:{vi:'Thiết kế DLQ cho vtd.outboxmessagestg3',en:'Design a DLQ for vtd.outboxmessagestg3'},d:{vi:'Thiết kế DLQ topic cho vtd.outboxmessagestg3 khi CRM sync fail 3 lần liên tiếp: sau retry thứ 3, message được gửi sang DLQ kèm headers giữ original-topic/partition/offset + error + retry-count (mẫu bên dưới), và phải có cơ chế replay về topic gốc sau khi sửa nguyên nhân — DLQ không có replay chỉ là nghĩa địa message. Nộp bản thiết kế: tên topic, header set, ngưỡng retry, luồng replay.',en:'Design a DLQ topic for vtd.outboxmessagestg3 when CRM sync fails 3 times in a row: after the 3rd retry the message goes to the DLQ with headers preserving original-topic/partition/offset + error + retry-count (sample below), plus a replay path back to the original topic once the cause is fixed — a DLQ without replay is just a message graveyard. Submit the design: topic name, header set, retry threshold, replay flow.'}}
+  ]},
+ {id:'C',lvl:'Senior',dur:{vi:'2 tuần',en:'2 weeks'},title:{vi:'Ops Lab — Vận hành như production',en:'Ops Lab — Operate Like Production'},goal:{vi:'Dựng và vận hành cluster 3 broker KRaft với replication, compaction, bảo mật SASL/SCRAM + ACL và observability Prometheus/Grafana — kèm runbook xử lý sự cố.',en:'Build and operate a 3-broker KRaft cluster with replication, compaction, SASL/SCRAM + ACL security and Prometheus/Grafana observability — plus incident runbooks.'},
+  tasks:[
+   {id:'C1',code:'c1',t:{vi:'3 broker KRaft: kill 1 vẫn produce được, kill 2 thì fail',en:'3-broker KRaft: kill 1 still produces, kill 2 fails'},d:{vi:'Dựng 3 broker KRaft, tạo topic với replication.factor=3, min.insync.replicas=2. Kill 1 broker → produce với acks=all vẫn OK vì ISR còn 2. Kill tiếp 1 broker nữa → produce fail (NOT_ENOUGH_REPLICAS) vì ISR=1 < min.insync=2. Giải thích cả hai hiện tượng bằng ISR/min.insync, và vì sao unclean.leader.election (đang tắt mặc định) không cứu được tình huống này.',en:'Stand up 3 KRaft brokers and create a topic with replication.factor=3, min.insync.replicas=2. Kill 1 broker → producing with acks=all still works because ISR=2. Kill a second → produce fails (NOT_ENOUGH_REPLICAS) because ISR=1 < min.insync=2. Explain both outcomes via ISR/min.insync, and why unclean.leader.election (off by default) does not rescue the second case.'}},
+   {id:'C2',code:'c2',t:{vi:'Log compaction cho topic state + verify bằng kafka-dump-log',en:'Log compaction for a state topic + verify with kafka-dump-log'},d:{vi:'Bật cleanup.policy=compact cho topic chứa state (ví dụ user-state), produce nhiều version cho cùng 1 key, chờ compaction chạy rồi verify bằng kafka-dump-log: sau compact, mỗi key chỉ còn value mới nhất. Nộp output dump-log trước/sau làm bằng chứng.',en:'Enable cleanup.policy=compact on a state topic (e.g. user-state), produce several versions for the same key, wait for compaction, then verify with kafka-dump-log: after compaction each key keeps only its latest value. Submit before/after dump-log output as proof.'}},
+   {id:'C3',code:'c3',t:{vi:'SASL/SCRAM + ACL: user chỉ đọc được đúng 1 topic',en:'SASL/SCRAM + ACL: a user that can read exactly 1 topic'},d:{vi:'Bật SASL/SCRAM trên cluster, tạo user lab-reader và cấp ACL chỉ cho phép READ + Describe trên đúng 1 topic (allowed-topic) với group prefix của user đó. Test cả hai chiều: đọc allowed-topic thành công; đọc topic khác bị TOPIC_AUTHORIZATION_FAILED. Nộp output của cả 2 lần test.',en:'Enable SASL/SCRAM on the cluster, create user lab-reader and grant an ACL allowing READ + Describe on exactly one topic (allowed-topic) with that user’s group prefix. Test both directions: reading allowed-topic succeeds; reading any other topic fails with TOPIC_AUTHORIZATION_FAILED. Submit both test outputs.'}},
+   {id:'C4',code:'c4',t:{vi:'kafka_exporter → Prometheus → Grafana + alert lag theo group',en:'kafka_exporter → Prometheus → Grafana + per-group lag alert'},d:{vi:'Expose metrics bằng kafka_exporter, scrape bằng Prometheus, dựng dashboard Grafana cho consumer lag. Viết alert rule: consumer_lag > 1000 kéo dài 5 phút, gắn theo TỪNG consumer group cụ thể (không alert trên lag tổng — lag tổng che mất group nào đang chìm). Nộp ảnh dashboard hoặc file rule + bằng chứng alert firing khi bạn bơm lag nhân tạo.',en:'Expose metrics with kafka_exporter, scrape with Prometheus, build a Grafana dashboard for consumer lag. Write the alert rule: consumer_lag > 1000 sustained for 5 minutes, scoped to EACH specific consumer group (never alert on total lag — it hides which group is drowning). Submit a dashboard screenshot or the rule file + proof the alert fires when you inject artificial lag.'}},
+   {id:'C5',jump:3,t:{vi:'Runbook cho 3 incident, áp vào cluster vừa dựng',en:'Runbooks for 3 incidents, applied to your cluster'},d:{vi:'Chọn 3 incident từ Incident Library (Step 3) và viết runbook xử lý cho từng incident ÁP VÀO cluster bạn vừa dựng ở C1–C4: triệu chứng → lệnh kiểm tra trên cluster này → ngưỡng quyết định → thao tác xử lý → cách verify đã khỏi. Runbook phải chạy được bởi người trực on-call lúc 3 giờ sáng, không cần người viết có mặt.',en:'Pick 3 incidents from the Incident Library (Step 3) and write a handling runbook for each, APPLIED to the cluster you built in C1–C4: symptoms → check commands on this cluster → decision thresholds → fix actions → how to verify recovery. The runbook must be runnable by whoever is on call at 3 a.m., without the author present.'}}
+  ]}
+];
+const HO_WEEKS=[
+ {lvl:'Junior',mod:'MODULE A',cells:[['W1–2',{vi:'Platform: theory + simulator + quiz L1',en:'Platform: theory + simulator + quiz L1'}],['W3',{vi:'Module A — Docker Lab',en:'Module A — Docker Lab'}],['W4',{vi:'Module A hoàn thành + demo',en:'Module A finished + demo'}],['W5',{vi:'Pair với Middle làm bài B1',en:'Pair with a Middle on task B1'}],['W6','—']]},
+ {lvl:'Middle',mod:'MODULE B',cells:[['W1–2',{vi:'Platform: quiz L2–3 + Incident Library',en:'Platform: quiz L2–3 + Incident Library'}],['W3',{vi:'Module B bắt đầu — đọc code',en:'Module B starts — code reading'}],['W4',{vi:'Module B — bài B1–B3',en:'Module B — tasks B1–B3'}],['W5',{vi:'Module B hoàn thành + demo',en:'Module B finished + demo'}],['W6',{vi:'Code review bài của Junior',en:'Code-review the Juniors’ work'}]]},
+ {lvl:'Senior',mod:'MODULE C',cells:[['W1–2',{vi:'Review Incident Library, soạn runbook',en:'Review Incident Library, draft runbooks'}],['W3',{vi:'Module C bắt đầu — 3 broker',en:'Module C starts — 3 brokers'}],['W4',{vi:'Module C — compaction, ACL, metrics',en:'Module C — compaction, ACL, metrics'}],['W5',{vi:'Module C hoàn thành',en:'Module C finished'}],['W6',{vi:'Chấm demo, chốt runbook on-call',en:'Grade demos, finalise on-call runbook'}]]}
+];
+function hoCodeBlock(key,label){
+  return `<div class="ho-codewrap"><div class="ho-codehead"><span>${label}</span><button class="btn sm" type="button" data-ho-copy="${key}">Copy</button></div><pre class="ho-code">${hoEsc(HO_CODE[key])}</pre></div>`;
+}
+function renderHandsOn(){
+  const rm=$('#ho-roadmap'),wrap=$('#ho-modules');if(!rm||!wrap)return;
+  const st=hoState();
+  rm.innerHTML=`
+   <div class="ho-principle"><span class="ng-ic">${ic('flag','ic-lg')}</span><div><h4>${LANG==='vi'?'Nguyên tắc pass: bằng output kiểm chứng được':'Pass rule: verifiable output only'}</h4><p>${LANG==='vi'?'Mỗi module kết thúc bằng output kiểm chứng — <b>log, screenshot <span class="mono">--describe</span>, PR đã merge</b>. Không pass bằng quiz. Mỗi bài tập <b>+15 XP</b>, hoàn thành cả module <b>+30 XP</b>; tick và dán output ngay trong workbook này, tiến độ lưu trên trình duyệt này.':'Each module ends with verifiable output — <b>logs, <span class="mono">--describe</span> screenshots, merged PRs</b>. Quizzes never pass anyone. Each task earns <b>+15 XP</b>, finishing a whole module <b>+30 XP</b>; tick and paste output right in this workbook — progress is saved in this browser.'}</p></div></div>
+   <div class="ho-rm">${HO_WEEKS.map(r=>`<div class="ho-rm-row"><div class="ho-rm-lvl">${r.lvl}<small>${r.mod}</small></div><div class="ho-wks">${r.cells.map(c=>`<span class="ho-wk ${c[1]==='—'?'off':''}"><b>${c[0]}</b>${c[1]==='—'?'—':L(c[1])}</span>`).join('')}</div></div>`).join('')}</div>`;
+  wrap.innerHTML=HO_MODULES.map(m=>{
+    const extraA=m.id==='A'?`<h4 class="ho-sub">docker-compose.yml — KRaft 1 broker + kafka-ui</h4>${hoCodeBlock('compose','docker-compose.yml')}<p class="dual-note" style="margin:0 0 6px">${LANG==='vi'?'Chạy: <span class="mono">docker compose up -d</span> → mở kafka-ui tại <span class="mono">http://localhost:8080</span> để nhìn partition/offset bằng mắt thường lần đầu, song song với CLI.':'Run: <span class="mono">docker compose up -d</span> → open kafka-ui at <span class="mono">http://localhost:8080</span> to see partitions/offsets visually the first time, alongside the CLI.'}</p>`:'';
+    const extraB=m.id==='B'?`<h4 class="ho-sub">${LANG==='vi'?'4 thẻ đọc code — vtd-service-loyalty-v3':'4 code-reading cards — vtd-service-loyalty-v3'}</h4><div class="ho-readgrid">${HO_READING.map(r=>`<div class="ho-read"><span class="mono">${r.f}</span><h5>${L(r.t)}</h5><p>${L(r.d)}</p></div>`).join('')}</div><h4 class="ho-sub">${LANG==='vi'?'Code mẫu — Idempotent consumer (NestJS / KafkaJS)':'Sample code — Idempotent consumer (NestJS / KafkaJS)'}</h4>${hoCodeBlock('idem',LANG==='vi'?'CODE MẪU THAM KHẢO — KHÔNG PHẢI CODE CỦA TEAM':'REFERENCE SAMPLE — NOT TEAM CODE')}`:'';
+    const tasks=m.tasks.map(tk=>{
+      const done=!!st.tasks[tk.id];
+      return `<div class="ho-task ${done?'done':''}" data-ho-taskwrap="${tk.id}">
+       <div class="ho-task-top"><input type="checkbox" data-ho-task="${tk.id}" ${done?'checked':''} aria-label="${tk.id}"><h5>${tk.id} · ${L(tk.t)}</h5><span class="tag ok xp">+15 XP</span></div>
+       <p class="desc">${L(tk.d)}</p>
+       ${tk.code?hoCodeBlock(tk.code,tk.id==='B3'?(LANG==='vi'?'MẪU GỬI DLQ KÈM HEADERS':'DLQ SEND SAMPLE WITH HEADERS'):(LANG==='vi'?'OUTPUT / LỆNH MẪU ĐỂ ĐỐI CHIẾU':'SAMPLE OUTPUT / COMMANDS TO COMPARE AGAINST')):''}
+       ${tk.jump?`<div class="ho-out"><button class="btn teal sm" type="button" data-ho-jump="${tk.jump}">${LANG==='vi'?'Mở Incident Library (Step 3)':'Open the Incident Library (Step 3)'} →</button></div>`:''}
+       <div class="ho-out"><label for="ho-out-${tk.id}">${LANG==='vi'?'DÁN OUTPUT CỦA BẠN':'PASTE YOUR OUTPUT'}</label><textarea id="ho-out-${tk.id}" data-ho-out="${tk.id}" placeholder="${LANG==='vi'?'Dán log, output lệnh, link PR hoặc ghi chú đối chiếu của bạn vào đây…':'Paste your logs, command output, PR link or comparison notes here…'}" spellcheck="false">${hoEsc(st.outputs[tk.id]||'')}</textarea></div>
+      </div>`;
+    }).join('');
+    return `<article class="panel ho-mod" id="ho-mod-${m.id}">
+     <div class="ho-mod-head"><span class="ho-mod-num">${m.id}</span><div><h3>${L(m.title)}</h3><p class="goal">${L(m.goal)}</p><div class="ho-mod-meta"><span class="tag ops">${m.lvl}</span><span class="tag warn">${L(m.dur)}</span><span class="tag dq">${HO_TASKS[m.id].length} ${LANG==='vi'?'bài tập':'tasks'} · +15 XP/${LANG==='vi'?'bài':'task'} · +30 XP ${LANG==='vi'?'khi xong':'on completion'}</span></div></div><span class="ho-status" id="ho-status-${m.id}"></span></div>
+     ${extraA}${extraB}${tasks}
+    </article>`;
+  }).join('');
+  $$('#ho-modules [data-ho-copy]').forEach(b=>b.addEventListener('click',()=>hoCopy(b.dataset.hoCopy,b)));
+  $$('#ho-modules [data-ho-task]').forEach(cb=>cb.addEventListener('click',e=>e.stopPropagation()));
+  $$('#ho-modules [data-ho-task]').forEach(cb=>cb.addEventListener('change',()=>{
+    const s=hoState();s.tasks[cb.dataset.hoTask]=cb.checked;saveProg();
+    const w=cb.closest('.ho-task');if(w)w.classList.toggle('done',cb.checked);
+    updateHoStatus();renderProgress();
+  }));
+  $$('#ho-modules [data-ho-out]').forEach(ta=>ta.addEventListener('input',()=>{
+    const s=hoState();s.outputs[ta.dataset.hoOut]=ta.value;saveProg();
+  }));
+  $$('#ho-modules [data-ho-jump]').forEach(b=>b.addEventListener('click',()=>goStep(+b.dataset.hoJump)));
+  updateHoStatus();
+}
+function updateHoStatus(){
+  const st=hoState();
+  ['A','B','C'].forEach(m=>{
+    const el=document.getElementById('ho-status-'+m);if(!el)return;
+    const n=HO_TASKS[m].filter(id=>st.tasks[id]).length,total=HO_TASKS[m].length;
+    const done=n===total;
+    el.textContent=done?(LANG==='vi'?'HOÀN THÀNH ✓ · +30 XP':'COMPLETE ✓ · +30 XP'):(n+'/'+total+' '+(LANG==='vi'?'BÀI':'TASKS'));
+    el.classList.toggle('done',done);
+  });
+}
+function hoCopy(key,btn){
+  const text=HO_CODE[key]||'';
+  const done=()=>{if(!btn)return;const old=btn.textContent;btn.textContent=LANG==='vi'?'Đã copy ✓':'Copied ✓';setTimeout(()=>{btn.textContent=old;},1500);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(()=>{hoCopyFallback(text);done();});}
+  else{hoCopyFallback(text);done();}
+}
+function hoCopyFallback(text){
+  const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}ta.remove();
 }
 
 /* ================= V3: quiz extras, progress extras, heading words ================= */
@@ -2522,6 +2831,7 @@ function renderProgExtras(){
   else if(iLeft)goal={icon:'alert',step:3,t:(LANG==='vi'?'Mở hồ sơ sự cố: ':'Open the incident file: ')+L(iLeft.title),d:LANG==='vi'?'Mỗi sự cố đã mở cộng +5 XP; đọc phần quyết định để rút ra bài học vận hành.':'Each opened incident earns +5 XP; read the decision part for the operational lesson.',act:null};
   else if(cLeft)goal={icon:'briefcase',step:4,t:(LANG==='vi'?'Nghiên cứu case: ':'Study the case: ')+L(cLeft.title),d:LANG==='vi'?'Mỗi case study đã mở cộng +5 XP; tự chọn đáp án trước khi xem khuyến nghị.':'Each opened case earns +5 XP; make your own call before reading the recommendation.',act:null};
   else if(qLeft)goal={icon:'help',step:5,t:(LANG==='vi'?'Hoàn thành quiz level: ':'Complete the quiz level: ')+L(QUIZ[qLeft.id].name),d:LANG==='vi'?'Hoàn thành một level cộng +20 XP, mỗi câu đúng lần đầu thêm +10 XP.':'Finishing a level earns +20 XP, plus +10 XP per first-time correct answer.',act:()=>startQuiz(qLeft.id)};
+  else if(hoFirstUndone())goal={icon:'terminal',step:6,t:(LANG==='vi'?'Làm bài Hands-on: ':'Do the Hands-on task: ')+hoFirstUndone(),d:LANG==='vi'?'Mỗi bài tập Hands-on cộng +15 XP, xong cả một module cộng thêm +30 XP. Output và ghi chú của bạn được lưu trên máy này.':'Each Hands-on task earns +15 XP, plus +30 XP when a whole module is finished. Your outputs and notes are saved on this device.',act:null};
   else goal={icon:'flag',step:null,t:LANG==='vi'?'Bạn đã đi hết hành trình!':'You have completed the whole journey!',d:LANG==='vi'?'Mọi module, game, sự cố, case và level quiz đều đã xong. Làm lại quiz để phá kỷ lục, hoặc xoá tiến độ để bắt đầu hành trình mới.':'Every module, game, incident, case and quiz level is done. Retake quizzes to beat your records, or reset progress for a fresh run.',act:null};
   ex.innerHTML=`
     <div class="next-goal"><span class="ng-ic">${ic(goal.icon)}</span><div><h4>${LANG==='vi'?'Mục tiêu tiếp theo':'Next goal'}${goal.step?' · STEP '+goal.step:''}</h4><p><b>${goal.t}</b><br>${goal.d}</p></div>${goal.step?`<button class="btn primary" type="button" id="ng-go">${LANG==='vi'?'Tới đó ngay':'Go there'} →</button>`:''}</div>
@@ -2565,7 +2875,7 @@ function initSearch(){
 /* ================= LANGUAGE ================= */
 function setLang(l){
   LANG=l;store.set('lang',l);
-  applyI18n();renderChrome();renderModules();renderGameTabs();renderIncidents();renderCases();renderLevels();renderProgress();
+  applyI18n();renderChrome();renderModules();renderGameTabs();renderIncidents();renderCases();renderLevels();renderProgress();renderHandsOn();
   gcOutcome();
   gaRender();gdRender(0,0);
   if(quiz.level&&$('#quiz-stage').classList.contains('on')&&$('#quiz-card').style.display!=='none')renderQuestion();
@@ -2581,11 +2891,12 @@ const STEPDEFS=[
  {id:'incidents',n:{vi:'Incident Library',en:'Incident Library'}},
  {id:'cases',n:{vi:'Case Studies',en:'Case Studies'}},
  {id:'quiz',n:{vi:'Quiz Cards',en:'Quiz Cards'}},
+ {id:'hands-on',n:{vi:'Hands-on Track',en:'Hands-on Track'}},
  {id:'progress',n:{vi:'Tiến độ của bạn',en:'Your Progress'}}
 ];
 let curStep=0,_lastXP=null;
 function stepEls(){return STEPDEFS.map(s=>document.getElementById(s.id)).filter(Boolean)}
-function computeXP(){return PROG.modules.length*10+PROG.games.length*30+PROG.incidents.length*5+(PROG.cases||[]).length*5+Object.keys(PROG.quizDone||{}).length*20+Object.keys(PROG.quizHits||{}).length*10}
+function computeXP(){return PROG.modules.length*10+PROG.games.length*30+PROG.incidents.length*5+(PROG.cases||[]).length*5+Object.keys(PROG.quizDone||{}).length*20+Object.keys(PROG.quizHits||{}).length*10+hoXP()}
 function stepDone(i){
   const qd=Object.keys(PROG.quizDone||{}).length>=LEVELS.length;
   switch(i){
@@ -2595,7 +2906,8 @@ function stepDone(i){
     case 3:return PROG.incidents.length>=INCIDENTS.length;
     case 4:return (PROG.cases||[]).length>=CASES.length;
     case 5:return qd;
-    case 6:return PROG.modules.length>=MODULES.length&&PROG.games.length>=GAMES.length&&PROG.incidents.length>=INCIDENTS.length&&qd;
+    case 6:return hoDoneCount()>=HO_ALL.length;
+    case 7:return PROG.modules.length>=MODULES.length&&PROG.games.length>=GAMES.length&&PROG.incidents.length>=INCIDENTS.length&&qd&&hoDoneCount()>=HO_ALL.length;
   }
   return false;
 }
@@ -2612,7 +2924,7 @@ function setStep(i,instant){
   const nameEl=$('#pill-stepname'),numEl=$('#pill-stepnum');
   if(nameEl&&numEl){
     nameEl.textContent=STEPDEFS[i].n[LANG];
-    numEl.textContent='STEP '+i+'/6';
+    numEl.textContent='STEP '+i+'/7';
     if(changed&&!instant){const st=$('#pill-step');st.classList.remove('swap');void st.offsetWidth;st.classList.add('swap');}
   }
   renderStepNav();
@@ -2634,7 +2946,7 @@ function renderPillMeta(){
   }
   _lastXP=xp;
   const cl=$('#pill-cleared');
-  if(cl)cl.textContent=STEPDEFS.filter((_,i)=>stepDone(i)).length+'/7 '+(LANG==='vi'?'màn':'steps');
+  if(cl)cl.textContent=STEPDEFS.filter((_,i)=>stepDone(i)).length+'/'+STEPDEFS.length+' '+(LANG==='vi'?'màn':'steps');
   renderStepNav();
 }
 function goStep(i){
@@ -2702,7 +3014,8 @@ command:'<path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3
 flag:'<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>',
 target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
 search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
-clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>'
+clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+terminal:'<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>'
 };
 function ic(name,cls){return `<svg class="ic ${cls||''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]||''}</svg>`}
 /* Kafka node-network mark — hand-drawn in the style of the Apache Kafka logo (nodes + edges forming a K) */
@@ -2856,7 +3169,7 @@ function initGhostParallax(){
 
 /* ---------- ⌘K jump overlay ---------- */
 let cmdkOpen=false;
-const STEP_ICONS=['flag','book','gamepad','alert','briefcase','help','trend'];
+const STEP_ICONS=['flag','book','gamepad','alert','briefcase','help','terminal','trend'];
 function renderCmdk(){
   const list=$('#cmdk-list');if(!list)return;
   list.innerHTML=STEPDEFS.map((s,i)=>`<button type="button" class="cmdk-item" data-jump="${i}">${ic(STEP_ICONS[i])}<span>Step ${i} · ${s.n[LANG]}</span><span class="ck">${stepDone(i)?ic('check','ic-xs'):''}<kbd>${i}</kbd></span></button>`).join('');
@@ -2871,20 +3184,20 @@ function initCmdk(){
     if((e.metaKey||e.ctrlKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();cmdkOpen?closeCmdk():openCmdk();return;}
     if(!cmdkOpen)return;
     if(e.key==='Escape'){closeCmdk();return;}
-    if(/^[0-6]$/.test(e.key)){const i=+e.key;closeCmdk();goStep(i);}
+    if(/^[0-7]$/.test(e.key)){const i=+e.key;closeCmdk();goStep(i);}
   });
 }
 
 /* ================= INIT ================= */
 function init(){
-  applyI18n();renderChrome();renderModules();renderGameTabs();renderIncidents();renderCases();renderLevels();renderProgress();
+  applyI18n();renderChrome();renderModules();renderGameTabs();renderIncidents();renderCases();renderLevels();renderProgress();renderHandsOn();
   initGameA();initGameB();initGameC();initGameD();initGameE();initSearch();
   switchGame('a');
   $('#lang-vi').addEventListener('click',()=>setLang('vi'));
   $('#lang-en').addEventListener('click',()=>setLang('en'));
   $('#prog-reset').addEventListener('click',()=>{
-    PROG={modules:[],games:[],incidents:[],cases:[],quizBest:{},quizDone:{},quizHits:{}};saveProg();
-    renderModules();renderGameTabs();renderIncidents();renderLevels();renderProgress();
+    PROG={modules:[],games:[],incidents:[],cases:[],quizBest:{},quizDone:{},quizHits:{},handsOn:{tasks:{},outputs:{}}};saveProg();
+    renderModules();renderGameTabs();renderIncidents();renderLevels();renderProgress();renderHandsOn();
   });
   initSteps();
   initMarks();initStage();initRotator();initCmdk();initCountUps();initGhostParallax();
