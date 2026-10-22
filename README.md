@@ -25,16 +25,16 @@ Most Kafka tutorials stop at definitions. Kafka Lab turns every concept into som
 
 - 🎛️ **Operate, don't memorize** — drag sliders to rebalance partitions, race message
   ordering strategies, crash brokers, and rescue a drowning consumer group.
-- 🧭 **One-page Step Journey** — the whole course lives on a single page as 7 full-screen
-  steps. A floating glass pill always tells you where you are (`STEP n/6`), and the bullet
+- 🧭 **One-page Step Journey** — the whole course lives on a single page as 8 full-screen
+  steps. A floating glass pill always tells you where you are (`STEP n/7`), and the bullet
   rail / `⌘K` jumper teleports you anywhere.
 - ⚡ **Micro-wins** — finishing a module, beating a simulator goal, opening an incident
   dossier or acing a quiz card earns XP that flies up to the header pill. Progress is saved
   locally — no account, no backend.
-- 🌏 **Fully bilingual** — every lesson, game, incident, case study and quiz card exists in
+- 🌏 **Fully bilingual** — every lesson, game, incident, case study, quiz card and hands-on exercise exists in
   Vietnamese and English; switch instantly from the pill.
 
-## 🗺️ The journey — 7 steps
+## 🗺️ The journey — 8 steps
 
 | Step | Block | What happens there |
 |-----:|-------|--------------------|
@@ -44,7 +44,8 @@ Most Kafka tutorials stop at definitions. Kafka Lab turns every concept into som
 | 3 | **Incident Library** | 9 production incidents as full diagnostic dossiers |
 | 4 | **Case Studies** | 6 architecture cases — you decide first, then compare |
 | 5 | **Quiz Cards** | 36 questions across Foundation / Practitioner / Senior |
-| 6 | **Progress** | XP, completion dashboard & per-level learning paths |
+| 6 | **Hands-on Track** | Workbook on your own machine: Module A Docker Lab (KRaft + kafka-ui), Module B Code Lab (reading real consumer/producer code — idempotency, draining shutdown, DLQ design), Module C Ops Lab (3-broker KRaft, compaction, SASL/ACL, kafka_exporter alerts) — an 11-exercise checklist with sample outputs to check against; you pass on verifiable output, not on quiz scores |
+| 7 | **Progress** | XP, completion dashboard & per-level learning paths |
 
 ## 📸 Screenshots
 
@@ -59,6 +60,11 @@ Most Kafka tutorials stop at definitions. Kafka Lab turns every concept into som
 | Quiz Cards | Progress dashboard |
 |---|---|
 | <img src="docs/screenshots/06-quiz-cards.svg" alt="Quiz Cards with three levels"> | <img src="docs/screenshots/07-progress.svg" alt="Progress dashboard with XP and completion"> |
+
+<div align="center">
+<img src="docs/screenshots/09-hands-on-track.svg" alt="Hands-on Track workbook with Module A/B/C checklists" width="900">
+<br><sub>Hands-on Track — the A/B/C workbook (Docker Lab · Code Lab · Ops Lab) with checklists, sample outputs and paste-your-output boxes.</sub>
+</div>
 
 <div align="center">
 <img src="docs/screenshots/08-mobile-hero.svg" alt="Kafka Lab on mobile" width="300">
