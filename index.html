@@ -749,6 +749,245 @@ button.ghost{position:static;opacity:1;pointer-events:auto;font-family:inherit;f
   .btn.primary::after,.btn.teal::after{display:none}
 }
 </style>
+<style id="v3-css">
+/* ============================================================
+   V3 VISUAL OVERHAUL — breathing room, per-step gradient mesh,
+   dark cinematic stage, bite-size Learn, density rebalance
+   ============================================================ */
+:root{
+  --grad-acc:linear-gradient(135deg,#F97316,#EA580C);
+  --grad-xp:linear-gradient(135deg,#FBBF24,#F97316);
+  --grad-ok:linear-gradient(135deg,#14B8A6,#0E7C6B);
+}
+/* per-step theme: accent pair + mesh tints */
+#intro{--sa:#E4570B;--sa2:#F59E0B;--mesh1:rgba(249,115,22,.20);--mesh2:rgba(245,158,11,.15)}
+#learn{--sa:#0E7C6B;--sa2:#65A30D;--mesh1:rgba(14,124,107,.17);--mesh2:rgba(101,163,13,.12)}
+#games{--sa:#EA580C;--sa2:#EAB308;--mesh1:rgba(234,88,12,.18);--mesh2:rgba(234,179,8,.13)}
+#incidents{--sa:#DC2626;--sa2:#FB7185;--mesh1:rgba(220,38,38,.14);--mesh2:rgba(251,113,133,.12)}
+#cases{--sa:#7C3AED;--sa2:#2563EB;--mesh1:rgba(124,58,237,.14);--mesh2:rgba(37,99,235,.11)}
+#quiz{--sa:#D97706;--sa2:#F97316;--mesh1:rgba(217,119,6,.16);--mesh2:rgba(249,115,22,.12)}
+#progress{--sa:#0E7C6B;--sa2:#F97316;--mesh1:rgba(14,124,107,.17);--mesh2:rgba(249,115,22,.12)}
+@media (prefers-color-scheme: dark){
+  #intro{--mesh1:rgba(249,115,22,.26);--mesh2:rgba(245,158,11,.18)}
+  #learn{--mesh1:rgba(47,191,165,.20);--mesh2:rgba(101,163,13,.14)}
+  #games{--mesh1:rgba(234,88,12,.24);--mesh2:rgba(234,179,8,.16)}
+  #incidents{--mesh1:rgba(255,107,94,.18);--mesh2:rgba(251,113,133,.15)}
+  #cases{--mesh1:rgba(155,148,232,.20);--mesh2:rgba(37,99,235,.16)}
+  #quiz{--mesh1:rgba(232,185,62,.20);--mesh2:rgba(249,115,22,.16)}
+  #progress{--mesh1:rgba(47,191,165,.20);--mesh2:rgba(249,115,22,.15)}
+}
+
+/* --- global rhythm: type scale + breathing room --- */
+body{
+  font-size:16.5px;line-height:1.7;
+  background-image:
+    radial-gradient(1000px 560px at 88% -6%, rgba(249,115,22,.16), transparent 62%),
+    radial-gradient(860px 560px at -12% 34%, rgba(14,124,107,.12), transparent 60%),
+    radial-gradient(900px 620px at 112% 80%, rgba(124,58,237,.10), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+.step-screen{height:auto;min-height:100vh;min-height:100svh;overflow:visible;padding:104px 2px 30px}
+.sheet{
+  overflow:visible;
+  background:
+    radial-gradient(760px 360px at 100% 0%, var(--mesh1,transparent), transparent 62%),
+    radial-gradient(600px 320px at 0% 100%, var(--mesh2,transparent), transparent 60%),
+    var(--surface);
+}
+.sheet-body{overflow:visible;padding:22px 48px 46px}
+.sec-head{padding:34px 48px 8px}
+.sec-head h2{font-size:clamp(26px,3.4vw,36px)}
+.sec-head p{font-size:15px}
+.hero-body{padding:42px 48px 48px}
+.ghost{
+  background:linear-gradient(155deg,var(--sa,var(--accent)),transparent 78%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;opacity:.17;
+}
+.spot{color:var(--sa,var(--accent))}
+.sec-head h2 .gw{
+  font-style:normal;
+  background:linear-gradient(92deg,var(--sa,var(--accent)),var(--sa2,var(--accent)));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+}
+@media (min-width:901px) and (max-width:1120px){.sheet-body{padding-right:76px}}
+
+/* --- gradient fills on primary controls --- */
+.btn.primary{background:var(--grad-acc);box-shadow:0 12px 26px -10px rgba(234,88,12,.65)}
+.btn.teal{background:var(--grad-ok);box-shadow:0 12px 26px -10px rgba(14,124,107,.6)}
+.pill-segs button.on::after{background:var(--grad-acc)}
+.pill-prog i{background:var(--grad-acc)}
+.pillbar .langsw button.on{background:var(--grad-acc)}
+.pill-xp{background:var(--grad-xp);color:#422006;box-shadow:0 8px 18px -8px rgba(249,115,22,.7)}
+.mod-chip.on{background:var(--grad-acc);box-shadow:0 12px 24px -10px rgba(234,88,12,.65)}
+.chipbtn.on{background:linear-gradient(135deg,var(--sa,var(--ink)),var(--sa2,var(--ink)));color:#fff}
+#games .game-tab.on{background:linear-gradient(135deg,var(--sa),var(--sa2));color:#fff}
+#games .game-tab.on small{color:rgba(255,255,255,.8)}
+#games .game-tab.on .ic{color:#FFE9C9}
+#games .game-tab.on .done{color:#BBF7D0}
+.qbar i{background:var(--grad-acc)}
+.qopt.right{background:linear-gradient(135deg,#D7F5EE,var(--teal-soft))}
+.qopt.right .k{background:var(--grad-ok)}
+@media (prefers-color-scheme: dark){.qopt.right{background:linear-gradient(135deg,#17453B,var(--teal-soft))}}
+
+/* --- per-step tinted hero cards (primary vs neutral rhythm) --- */
+.rm-card{background:linear-gradient(160deg,var(--surface2),var(--surface3))}
+#learn .mod.panel{background:linear-gradient(165deg,var(--surface2),color-mix(in srgb,var(--teal-soft) 42%, var(--surface2)))}
+#games .game.panel{background:linear-gradient(165deg,var(--surface2),color-mix(in srgb,var(--accent-soft) 48%, var(--surface2)))}
+#incidents .icard{background:linear-gradient(160deg,var(--surface2),color-mix(in srgb,var(--red-soft) 52%, var(--surface2)))}
+#cases .icard{background:linear-gradient(160deg,var(--surface2),color-mix(in srgb,var(--violet-soft) 52%, var(--surface2)))}
+#quiz .lvl-card{background:linear-gradient(150deg,var(--surface2),color-mix(in srgb,var(--accent-soft) 55%, var(--surface2)))}
+#progress .prog-cell{background:linear-gradient(150deg,var(--surface2),color-mix(in srgb,var(--teal-soft) 55%, var(--surface2)))}
+
+/* --- Step 0 stage: dark cinematic contrast (Linear beat) --- */
+.stage{
+  background:
+    radial-gradient(640px 300px at 18% -20%, rgba(249,115,22,.34), transparent 60%),
+    radial-gradient(560px 300px at 88% 120%, rgba(20,184,166,.20), transparent 60%),
+    linear-gradient(160deg,#251C12,#131009 72%);
+  color:#F5EFE4;
+  box-shadow:0 34px 70px -30px rgba(20,12,4,.55), inset 0 0 0 1px rgba(245,239,228,.10);
+}
+.stage::before{
+  background-image:linear-gradient(rgba(245,239,228,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(245,239,228,.055) 1px,transparent 1px);
+}
+.stage-topic{color:rgba(245,239,228,.62)}
+.stage-topic b{color:#FFF7EA}
+.stage .btn:not(.primary){background:rgba(245,239,228,.10);color:#F5EFE4}
+.live-badge{background:rgba(220,38,38,.22);color:#FCA5A5}
+.live-badge i{background:#F87171}
+.snode{background:#2C2317;color:#F5EFE4;box-shadow:0 14px 30px -14px rgba(0,0,0,.65), inset 0 0 0 1px rgba(245,239,228,.09)}
+.snode span{color:rgba(245,239,228,.55)}
+.snode .ic{color:#FFB27A}
+.snode.cons .ic{color:#5EEAD4}
+.track{background:rgba(245,239,228,.07);box-shadow:inset 0 0 0 1px rgba(245,239,228,.10)}
+.lanes .track::after{border-top-color:rgba(245,239,228,.22)}
+.lane-off{color:rgba(245,239,228,.55)}
+.stage-core .ring{border-color:#FB923C}
+.stage-core .core-mark{
+  background:var(--grad-acc);color:#fff;
+  box-shadow:0 0 0 6px rgba(249,115,22,.16), 0 0 46px rgba(249,115,22,.55), var(--shadow-lg);
+}
+.stage-metrics{color:rgba(245,239,228,.55);box-shadow:0 -1px 0 rgba(245,239,228,.12)}
+.stage-metrics b{color:#FFF7EA}
+
+/* --- Learn: big sticky diagram + bite-size idea cards --- */
+.mod-grid{grid-template-columns:1.08fr .92fr;gap:32px;padding:22px 30px 0;align-items:start}
+.mod-col-diagram{position:sticky;top:4px}
+.mod-grid h4{
+  font-family:"Space Grotesk","Be Vietnam Pro",sans-serif;font-size:14.5px;font-weight:700;
+  letter-spacing:.01em;text-transform:none;color:var(--ink);margin:22px 0 11px;
+}
+.mod-grid h4:first-child{margin-top:0}
+.diagram{padding:20px}
+.diagram svg{width:100%}
+.lesson-cards{display:grid;gap:12px}
+.lcard{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);padding:17px 19px}
+.lcard .lt{display:block;font-family:"Space Grotesk","Be Vietnam Pro",sans-serif;font-weight:700;font-size:16.5px;line-height:1.4;margin-bottom:4px;color:var(--ink)}
+.lcard p{margin:0;font-size:15.5px;line-height:1.68;color:var(--ink2)}
+.lcard p b{color:var(--ink)}
+.take-card{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);padding:18px 20px;margin-top:22px}
+.take-card h4{margin-top:0}
+.take-card ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.take-card li{display:flex;gap:10px;font-size:15px;line-height:1.6;color:var(--ink2)}
+.take-card li .tk{flex:none;width:22px;height:22px;border-radius:8px;background:var(--grad-ok);color:#fff;display:grid;place-items:center;margin-top:2px}
+.take-card li .tk svg{width:13px;height:13px}
+.mistakes{padding:15px 19px;font-size:14.5px;line-height:1.65}
+.refs{font-size:13.5px;line-height:1.7}
+.mod-top{padding:26px 30px 0}
+.mod-actions{padding:20px 30px 28px}
+
+/* --- Incidents: roomy 2-column cards --- */
+#incidents .cards{grid-template-columns:repeat(2,1fr);gap:22px}
+#incidents .icard{padding:26px;gap:12px}
+#incidents .icard h3{font-size:19px}
+#incidents .icard .sym{
+  font-size:14.5px;line-height:1.65;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+.cards{gap:20px}
+.icard .sym{font-size:14.5px}
+
+/* --- Games: event log starts compact, grows with content --- */
+.console{height:auto;min-height:54px;max-height:180px;position:relative}
+.console:empty{display:flex;align-items:center}
+.console:empty::after{
+  content:attr(data-empty);color:#8B929E;font-size:12px;
+}
+
+/* --- Quiz: rules strip + sample question fill the frame --- */
+.levels{gap:18px;margin-bottom:22px}
+.lvl-card{padding:22px}
+.quiz-rules{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:22px}
+.qrule{background:var(--surface2);border-radius:20px;box-shadow:var(--shadow);padding:20px 22px}
+.qrule .ic{color:var(--accent-ink);margin-bottom:9px}
+.qrule h4{margin:0 0 6px;font-size:16.5px;font-family:"Space Grotesk","Be Vietnam Pro",sans-serif}
+.qrule p{margin:0;font-size:14.5px;color:var(--ink2);line-height:1.65}
+.qrule .qr-big{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:18px;color:var(--accent-ink)}
+.sample-q{
+  margin-top:22px;border-radius:22px;box-shadow:var(--shadow);padding:22px 26px;
+  background:linear-gradient(150deg,var(--surface2),color-mix(in srgb,var(--accent-soft) 60%, var(--surface2)));
+}
+.sample-q>p{font-size:16.5px;font-weight:600;line-height:1.55;margin:10px 0 14px}
+.sq-opts{display:grid;gap:8px}
+.sq-opt{background:var(--surface);border-radius:12px;padding:11px 15px;font-size:14.5px;display:flex;gap:11px;align-items:flex-start;box-shadow:inset 0 0 0 1px var(--line)}
+.sq-opt .k{font-weight:700;color:var(--accent-ink)}
+.sample-q details{margin-top:14px}
+.sample-q summary{list-style:none;width:max-content}
+.sample-q summary::-webkit-details-marker{display:none}
+.qtext{font-size:18.5px}
+.qcard{padding:26px}
+
+/* --- Progress: next-goal banner + journey timeline --- */
+.prog-grid{gap:16px}
+.checkline{font-size:15px;padding:9px 0}
+.next-goal{
+  display:flex;gap:17px;align-items:center;flex-wrap:wrap;margin-top:20px;
+  border-radius:22px;box-shadow:var(--shadow);padding:22px 26px;
+  background:linear-gradient(120deg,color-mix(in srgb,var(--teal-soft) 75%, var(--surface2)),var(--surface2));
+}
+.next-goal .ng-ic{width:48px;height:48px;border-radius:15px;background:var(--grad-ok);color:#fff;display:grid;place-items:center;flex:none}
+.next-goal .ng-ic .ic{width:24px;height:24px}
+.next-goal h4{margin:0 0 3px;font-size:17px;font-family:"Space Grotesk","Be Vietnam Pro",sans-serif}
+.next-goal p{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.6;max-width:62ch}
+.next-goal .btn{margin-left:auto}
+.journey-map{display:grid;grid-template-columns:repeat(7,1fr);gap:11px;margin-top:20px}
+.jm-step{
+  background:var(--surface2);border:0;border-radius:18px;box-shadow:var(--shadow);
+  padding:15px 10px 13px;text-align:center;cursor:pointer;font:inherit;color:var(--ink);
+  transition:transform .2s,box-shadow .2s;
+}
+.jm-step:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.jm-step .jm-dot{
+  width:31px;height:31px;margin:0 auto 8px;border-radius:99px;background:var(--surface3);
+  display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:13px;color:var(--muted);
+}
+.jm-step.done .jm-dot{background:var(--grad-ok);color:#fff}
+.jm-step.cur{box-shadow:var(--shadow), inset 0 0 0 2px var(--sa,#0E7C6B)}
+.jm-step.cur .jm-dot{background:var(--grad-acc);color:#fff}
+.jm-step b{display:block;font-size:12.5px;line-height:1.35;font-family:"Space Grotesk","Be Vietnam Pro",sans-serif}
+.jm-step span{font-size:11px;color:var(--muted)}
+
+/* --- mobile v3 --- */
+@media (max-width:900px){
+  .step-screen{padding:130px 0 16px}
+  .sec-head{padding:24px 22px 4px}
+  .sheet-body{padding:16px 22px 32px}
+  .hero-body{padding:28px 22px 34px}
+  .mod-grid{grid-template-columns:1fr;padding:16px 20px 0}
+  .mod-col-diagram{position:static}
+  .mod-top{padding:20px 20px 0}
+  .mod-actions{padding:18px 20px 22px}
+  #incidents .cards{grid-template-columns:1fr}
+  .quiz-rules{grid-template-columns:1fr}
+  .journey-map{grid-template-columns:repeat(3,1fr)}
+  .next-goal .btn{margin-left:0}
+  .sample-q{padding:18px 20px}
+  .qcard{padding:20px}
+}
+@media (prefers-reduced-motion: reduce){
+  .jm-step{transition:none}
+}
+</style>
 </head>
 <body>
 
@@ -998,10 +1237,12 @@ button.ghost{position:static;opacity:1;pointer-events:auto;font-family:inherit;f
     <div class="sec-head"><span class="idx">STEP 5</span><h2 data-i18n="quiz_h">Quiz Cards — Ôn luyện theo level</h2><p data-i18n="quiz_sub">Chọn level, trả lời từng thẻ, xem giải thích ngay. Điểm cao nhất được lưu trên máy này.</p></div>
     <div class="sheet-body">
     <div class="levels" id="quiz-levels"></div>
+    <div id="quiz-extras"></div>
     <div class="quiz-stage panel" id="quiz-stage">
       <div class="qcard" id="quiz-card"></div>
       <div class="qresult" id="quiz-result"></div>
     </div>
+    <div id="quiz-sample"></div>
     </div></div>
   </section>
 
@@ -1022,6 +1263,7 @@ button.ghost{position:static;opacity:1;pointer-events:auto;font-family:inherit;f
       </div>
       <button class="btn" id="prog-reset" type="button" style="margin-top:18px" data-i18n="prog_reset">Xoá toàn bộ tiến độ</button>
     </div>
+    <div id="prog-extras"></div>
     <footer>
       <h4 data-i18n="foot_h">Nguồn học &amp; tài liệu gốc</h4>
       <ul id="foot-refs"></ul>
@@ -1271,6 +1513,13 @@ const MOD_FIGS={
  m4:{vi:"Luồng Outbox + CDC: 1 transaction → Debezium → Kafka (acks=all) → consumer idempotent",en:"Outbox + CDC flow: 1 transaction → Debezium → Kafka (acks=all) → idempotent consumer"},
  m5:{vi:"Classic chia theo partition vs Share Group chia theo record (KIP-932)",en:"Classic partition assignment vs Share Group per-record sharing (KIP-932)"}
 };
+function splitLesson(html){
+  const m=html.match(/^<b>([\s\S]*?)<\/b>\s*([\s\S]*)$/);
+  if(!m)return{t:'',b:html};
+  const t=m[1].replace(/<[^>]+>/g,'').replace(/[.:]\s*$/,'');
+  if(!t||t.length>64)return{t:'',b:html};
+  return{t:t,b:m[2]};
+}
 function renderModules(){
   if(!MODULES.some(m=>m.id===curMod))curMod='m1';
   const chips=MODULES.map(m=>{
@@ -1286,21 +1535,23 @@ function renderModules(){
       <span class="readflag ${done?'done':''}">${done?'✓ READ':'○'}</span>
     </div>
       <div class="mod-grid">
-        <div>
-          <h4>${LANG==='vi'?'Bài học':'Lessons'}</h4>
-          ${m.lessons.map(l=>`<p class="lesson">${L(l)}</p>`).join('')}
-          <h4>${LANG==='vi'?'Lỗi thường gặp':'Common mistake'}</h4>
-          <div class="mistakes"><b>⚠ </b>${L(m.mistake)}</div>
-        </div>
-        <div>
+        <div class="mod-col-diagram">
           <h4>${LANG==='vi'?'Sơ đồ':'Diagram'}</h4>
           <div class="diagram">${m.diagram()}</div>
           <p class="figcap diagcap">Fig 1.${+m.num.slice(1)} — ${L(MOD_FIGS[m.id])}</p>
           ${m.id==='m2'?`<div class="brandrow">${brandChip('Apache Kafka','#E4570B','kafka')}${brandChip('RabbitMQ','#FF6600','inbox')}</div>`:''}
-          <h4>Key takeaways</h4>
-          <ul class="takeaways">${m.takeaways.map(x=>`<li>${L(x)}</li>`).join('')}</ul>
+          <div class="take-card">
+            <h4>Key takeaways</h4>
+            <ul>${m.takeaways.map(x=>`<li><span class="tk">${ic('check')}</span><span>${L(x)}</span></li>`).join('')}</ul>
+          </div>
           <h4>References</h4>
           <p class="refs">${m.refs.map(r=>`<a href="${r[1]}" target="_blank" rel="noopener">${r[0]}</a>`).join('<br>')}</p>
+        </div>
+        <div class="mod-col-lessons">
+          <h4>${LANG==='vi'?'Ý cốt lõi':'Core ideas'}</h4>
+          <div class="lesson-cards">${m.lessons.map(l=>{const s=splitLesson(L(l));return `<div class="lcard">${s.t?`<span class="lt">${s.t}</span>`:''}<p>${s.b}</p></div>`}).join('')}</div>
+          <h4>${LANG==='vi'?'Lỗi thường gặp':'Common mistake'}</h4>
+          <div class="mistakes"><b>⚠ </b>${L(m.mistake)}</div>
         </div>
       </div>
       <div class="mod-actions">
@@ -2085,6 +2336,7 @@ function renderLevels(){
     </button>`;
   }).join('');
   $$('#quiz-levels [data-lvl]').forEach(b=>b.addEventListener('click',()=>startQuiz(b.dataset.lvl)));
+  if(typeof renderQuizExtras==='function')renderQuizExtras();
 }
 function startQuiz(level){
   const qs=QUIZ[level].qs;
@@ -2167,8 +2419,59 @@ function renderProgress(){
   $('#prog-mods').innerHTML=MODULES.map(m=>line(PROG.modules.includes(m.id),`${m.num} · ${L(m.title)}`)).join('');
   $('#prog-games').innerHTML=GAMES.map(g=>line(PROG.games.includes(g.id),L(g.name))).join('');
   $('#prog-quiz').innerHTML=LEVELS.map(lv=>{const b=PROG.quizBest[lv.id];return line(!!b,`${L(QUIZ[lv.id].name)}${b?` — ★ ${b.score}/${b.total}`:''}`)}).join('');
+  if(typeof renderProgExtras==='function')renderProgExtras();
   renderPillMeta();
 }
+
+/* ================= V3: quiz extras, progress extras, heading words ================= */
+function renderQuizExtras(){
+  const ex=$('#quiz-extras');if(!ex)return;
+  const recCount=LEVELS.filter(lv=>PROG.quizBest[lv.id]).length;
+  const cur=quiz.level?L(QUIZ[quiz.level].name):(LANG==='vi'?'Chưa chọn — bấm một thẻ level ở trên':'Not picked yet — tap a level card above');
+  ex.innerHTML=`<div class="quiz-rules">
+    <div class="qrule">${ic('help','ic-lg')}<h4>${LANG==='vi'?'Cách chơi':'How it works'}</h4><p>${LANG==='vi'?'Mỗi level 12 câu, thứ tự xáo trộn mỗi lượt. Chọn đáp án để xem giải thích ngay — không giới hạn thời gian, trả lời sai cũng là một bài học.':'12 questions per level, shuffled every run. Pick an answer to see the explanation instantly — no timer, and a miss is a lesson too.'}</p></div>
+    <div class="qrule">${ic('zap','ic-lg')}<h4>${LANG==='vi'?'Cách tính XP':'How XP works'}</h4><p>${LANG==='vi'?'Mỗi câu đúng lần đầu':'Each first-time correct answer'}: <span class="qr-big">+10 XP</span> · ${LANG==='vi'?'Hoàn thành một level':'Finishing a level'}: <span class="qr-big">+20 XP</span>. ${LANG==='vi'?'XP cộng dồn vào pill phía trên.':'XP accumulates in the pill above.'}</p></div>
+    <div class="qrule">${ic('target','ic-lg')}<h4>${LANG==='vi'?'Level đang chọn':'Current level'}</h4><p><span class="qr-big">${cur}</span><br>${recCount?`${LANG==='vi'?'Đã có kỷ lục ở':'Records set on'} ${recCount}/3 level.`:(LANG==='vi'?'Chưa có kỷ lục nào — set đầu tiên đang chờ bạn.':'No records yet — your first set awaits.')}</p></div>
+  </div>`;
+  const sm=$('#quiz-sample');if(!sm)return;
+  const s=QUIZ.f.qs[0];if(!s)return;
+  sm.innerHTML=`<div class="sample-q"><span class="tag ops">${LANG==='vi'?'Câu hỏi mẫu · Foundation':'Sample question · Foundation'}</span><p>${L(s.q)}</p><div class="sq-opts">${s.o.map((o,i)=>`<div class="sq-opt"><span class="k">${String.fromCharCode(65+i)}</span><span>${L(o)}</span></div>`).join('')}</div><details><summary class="btn sm">${LANG==='vi'?'Xem đáp án & giải thích':'Reveal answer & explanation'}</summary><p style="margin:12px 0 0;font-size:14.5px;line-height:1.65"><b style="color:var(--teal)">${LANG==='vi'?'Đáp án':'Answer'}: ${String.fromCharCode(65+s.a)}</b> — ${L(s.e)}</p></details></div>`;
+}
+function renderProgExtras(){
+  const ex=$('#prog-extras');if(!ex)return;
+  const mLeft=MODULES.find(m=>!PROG.modules.includes(m.id));
+  const gLeft=GAMES.find(g=>!PROG.games.includes(g.id));
+  const iLeft=INCIDENTS.find(i=>!PROG.incidents.includes(i.id));
+  const cLeft=CASES.find(c=>!(PROG.cases||[]).includes(c.id));
+  const qLeft=LEVELS.find(lv=>!(PROG.quizDone||{})[lv.id]);
+  let goal=null;
+  if(mLeft)goal={icon:'book',step:1,t:(LANG==='vi'?'Đọc tiếp module ':'Read module ')+mLeft.num+' — '+L(mLeft.title),d:LANG==='vi'?'Mỗi module đọc xong cộng +10 XP và mở khoá nền tảng cho game tương ứng.':'Each finished module earns +10 XP and lays the groundwork for its game.',act:()=>{curMod=mLeft.id;renderModules();}};
+  else if(gLeft)goal={icon:'gamepad',step:2,t:(LANG==='vi'?'Hoàn thành game: ':'Finish the game: ')+L(gLeft.name),d:LANG==='vi'?'Đạt mục tiêu của một game cộng +30 XP — phần thưởng lớn nhất trong hành trình.':'Completing a game goal earns +30 XP — the biggest reward on the journey.',act:()=>switchGame(gLeft.id)};
+  else if(iLeft)goal={icon:'alert',step:3,t:(LANG==='vi'?'Mở hồ sơ sự cố: ':'Open the incident file: ')+L(iLeft.title),d:LANG==='vi'?'Mỗi sự cố đã mở cộng +5 XP; đọc phần quyết định để rút ra bài học vận hành.':'Each opened incident earns +5 XP; read the decision part for the operational lesson.',act:null};
+  else if(cLeft)goal={icon:'briefcase',step:4,t:(LANG==='vi'?'Nghiên cứu case: ':'Study the case: ')+L(cLeft.title),d:LANG==='vi'?'Mỗi case study đã mở cộng +5 XP; tự chọn đáp án trước khi xem khuyến nghị.':'Each opened case earns +5 XP; make your own call before reading the recommendation.',act:null};
+  else if(qLeft)goal={icon:'help',step:5,t:(LANG==='vi'?'Hoàn thành quiz level: ':'Complete the quiz level: ')+L(QUIZ[qLeft.id].name),d:LANG==='vi'?'Hoàn thành một level cộng +20 XP, mỗi câu đúng lần đầu thêm +10 XP.':'Finishing a level earns +20 XP, plus +10 XP per first-time correct answer.',act:()=>startQuiz(qLeft.id)};
+  else goal={icon:'flag',step:null,t:LANG==='vi'?'Bạn đã đi hết hành trình!':'You have completed the whole journey!',d:LANG==='vi'?'Mọi module, game, sự cố, case và level quiz đều đã xong. Làm lại quiz để phá kỷ lục, hoặc xoá tiến độ để bắt đầu hành trình mới.':'Every module, game, incident, case and quiz level is done. Retake quizzes to beat your records, or reset progress for a fresh run.',act:null};
+  ex.innerHTML=`
+    <div class="next-goal"><span class="ng-ic">${ic(goal.icon)}</span><div><h4>${LANG==='vi'?'Mục tiêu tiếp theo':'Next goal'}${goal.step?' · STEP '+goal.step:''}</h4><p><b>${goal.t}</b><br>${goal.d}</p></div>${goal.step?`<button class="btn primary" type="button" id="ng-go">${LANG==='vi'?'Tới đó ngay':'Go there'} →</button>`:''}</div>
+    <div class="journey-map">${STEPDEFS.map((s,i)=>`<button type="button" class="jm-step ${stepDone(i)?'done':''} ${i===curStep?'cur':''}" data-jm="${i}"><span class="jm-dot">${stepDone(i)?'✓':i}</span><b>${s.n[LANG]}</b><span>${stepDone(i)?(LANG==='vi'?'Đã xong':'Done'):(LANG==='vi'?'Chưa xong':'Pending')}</span></button>`).join('')}</div>`;
+  $$('#prog-extras [data-jm]').forEach(b=>b.addEventListener('click',()=>goStep(+b.dataset.jm)));
+  const ng=$('#ng-go');
+  if(ng)ng.addEventListener('click',()=>{goStep(goal.step);if(goal.act)setTimeout(goal.act,500);});
+}
+function v3ConsoleHints(){
+  $$('.console').forEach(c=>{c.dataset.empty=LANG==='vi'?'Event log — sự kiện sẽ hiện ở đây khi bạn thao tác với phòng mô phỏng.':'Event log — events will appear here as you operate the room.';});
+}
+function v3WrapHeadings(){
+  $$('.step-screen .sec-head h2').forEach(h=>{
+    if(h.querySelector('.gw'))return;
+    const words=h.textContent.trim().split(/\s+/);
+    if(words.length<2)return;
+    const last=words.pop();
+    h.innerHTML=words.join(' ')+' <em class="gw">'+last+'</em>';
+  });
+}
+function initV3(){v3WrapHeadings();v3ConsoleHints();}
+document.addEventListener('DOMContentLoaded',()=>setTimeout(initV3,0));
 
 /* ================= SEARCH ================= */
 function initSearch(){
@@ -2195,6 +2498,7 @@ function setLang(l){
   gaRender();gdRender(0,0);
   if(quiz.level&&$('#quiz-stage').classList.contains('on')&&$('#quiz-card').style.display!=='none')renderQuestion();
   renderStepNav();setStep(curStep,true);renderPillMeta();
+  initV3();
 }
 
 /* ================= STEP JOURNEY: pill, dots, XP ================= */
